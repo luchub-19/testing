@@ -1,0 +1,23 @@
+[
+  {
+    "id": "task_001",
+    "instruction": "Calculate the result of (123 * 456) + (789 / 3)",
+    "eval_type": "keyword",
+    "eval_script": "56181, 56181.0",
+    "max_steps": 5
+  },
+  {
+    "id": "task_002",
+    "instruction": "List all files in the current directory",
+    "eval_type": "keyword",
+    "eval_script": "CMakeLists, benchmark, src",
+    "max_steps": 5
+  },
+  {
+    "id": "task_003",
+    "instruction": "Write 'Hello from AI Agent' to /tmp/agent_test.txt then read it back",
+    "eval_type": "keyword",
+    "eval_script": "Hello from AI Agent",
+    "max_steps": 8
+  }
+]
