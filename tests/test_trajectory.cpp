@@ -61,7 +61,11 @@ TEST(Trajectory, ExportContainsSteps) {
 
 TEST(Trajectory, ExportIsValidJson) {
     auto t = makeSample();
-    EXPECT_NO_THROW(json::parse(t.exportToJson()));
+    // dùng auto để tránh warning "ignoring return value"
+    EXPECT_NO_THROW({
+        auto j = nlohmann::json::parse(t.exportToJson());
+        (void)j;
+    });
 }
 
 TEST(Trajectory, EmptyTrajectory) {

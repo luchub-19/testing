@@ -1,0 +1,246 @@
+{
+  "tests": 42,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "CalculatorTool",
+      "tests": 12,
+      "testsuite": [
+        {
+          "name": "Addition",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 12
+        },
+        {
+          "name": "Subtraction",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 13
+        },
+        {
+          "name": "Multiplication",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 14
+        },
+        {
+          "name": "Division",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 15
+        },
+        {
+          "name": "Precedence_MulBeforeAdd",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 18
+        },
+        {
+          "name": "Parentheses_OverridePrecedence",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 21
+        },
+        {
+          "name": "NestedParentheses",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 24
+        },
+        {
+          "name": "FloatResult",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 29
+        },
+        {
+          "name": "NegativeNumber",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 37
+        },
+        {
+          "name": "JsonArgs",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 45
+        },
+        {
+          "name": "DivisionByZero",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 53
+        },
+        {
+          "name": "EmptyInput",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_calculator.cpp",
+          "line": 57
+        }
+      ]
+    },
+    {
+      "name": "LoopDetectorTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "NoLoop_BelowThreshold",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_loop_detector.cpp",
+          "line": 18
+        },
+        {
+          "name": "Loop_AtThreshold",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_loop_detector.cpp",
+          "line": 23
+        },
+        {
+          "name": "NoLoop_DifferentArgs",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_loop_detector.cpp",
+          "line": 30
+        },
+        {
+          "name": "NoLoop_DifferentTools",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_loop_detector.cpp",
+          "line": 37
+        },
+        {
+          "name": "Loop_BreaksOnDifferentStep",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_loop_detector.cpp",
+          "line": 44
+        },
+        {
+          "name": "PingPong_Detected",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_loop_detector.cpp",
+          "line": 54
+        },
+        {
+          "name": "PingPong_BelowCritical",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_loop_detector.cpp",
+          "line": 63
+        },
+        {
+          "name": "PingPong_NotAlternating",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_loop_detector.cpp",
+          "line": 70
+        },
+        {
+          "name": "PingPong_ThreeDistinctTools",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_loop_detector.cpp",
+          "line": 79
+        }
+      ]
+    },
+    {
+      "name": "Trajectory",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "ExportContainsTopLevelFields",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_trajectory.cpp",
+          "line": 37
+        },
+        {
+          "name": "ExportContainsSteps",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_trajectory.cpp",
+          "line": 49
+        },
+        {
+          "name": "ExportIsValidJson",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_trajectory.cpp",
+          "line": 62
+        },
+        {
+          "name": "EmptyTrajectory",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_trajectory.cpp",
+          "line": 71
+        }
+      ]
+    },
+    {
+      "name": "KeywordEvalTest",
+      "tests": 8,
+      "testsuite": [
+        {
+          "name": "AllKeywordsFound_Score1",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_keyword_evaluator.cpp",
+          "line": 33
+        },
+        {
+          "name": "HalfKeywordsFound_Score0_5",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_keyword_evaluator.cpp",
+          "line": 39
+        },
+        {
+          "name": "NoKeywordsFound_Score0",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_keyword_evaluator.cpp",
+          "line": 45
+        },
+        {
+          "name": "EmptyEvalScript_Score0",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_keyword_evaluator.cpp",
+          "line": 51
+        },
+        {
+          "name": "CaseInsensitive",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_keyword_evaluator.cpp",
+          "line": 58
+        },
+        {
+          "name": "KeywordInToolResult",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_keyword_evaluator.cpp",
+          "line": 65
+        },
+        {
+          "name": "WhitespaceTrimmedKeywords",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_keyword_evaluator.cpp",
+          "line": 72
+        },
+        {
+          "name": "SearchesAllSteps",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_keyword_evaluator.cpp",
+          "line": 79
+        }
+      ]
+    },
+    {
+      "name": "ToolRegistryTest",
+      "tests": 9,
+      "testsuite": [
+        {
+          "name": "ExecuteKnownTool",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_tool_registry.cpp",
+          "line": 16
+        },
+        {
+          "name": "ExecuteUnknownTool_ReturnsNullopt",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_tool_registry.cpp",
+          "line": 22
+        },
+        {
+          "name": "HasTool_True",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_tool_registry.cpp",
+          "line": 28
+        },
+        {
+          "name": "HasTool_False",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_tool_registry.cpp",
+          "line": 32
+        },
+        {
+          "name": "AllowedTools_BlocksOthers",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_tool_registry.cpp",
+          "line": 37
+        },
+        {
+          "name": "EmptyAllowedList_AllowsAll",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_tool_registry.cpp",
+          "line": 45
+        },
+        {
+          "name": "DescriptionsNotEmpty",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_tool_registry.cpp",
+          "line": 53
+        },
+        {
+          "name": "DescriptionsRespectAllowedList",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_tool_registry.cpp",
+          "line": 60
+        },
+        {
+          "name": "MemoryTool_StoreRecall",
+          "file": "\/home\/luckng19\/OOP\/project-ai\/testing\/tests\/test_tool_registry.cpp",
+          "line": 68
+        }
+      ]
+    }
+  ]
+}

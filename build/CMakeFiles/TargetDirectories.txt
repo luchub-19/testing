@@ -1,0 +1,5 @@
+/home/luckng19/OOP/project-ai/testing/build/CMakeFiles/run_eval.dir
+/home/luckng19/OOP/project-ai/testing/build/CMakeFiles/run_tests.dir
+/home/luckng19/OOP/project-ai/testing/build/CMakeFiles/test.dir
+/home/luckng19/OOP/project-ai/testing/build/CMakeFiles/edit_cache.dir
+/home/luckng19/OOP/project-ai/testing/build/CMakeFiles/rebuild_cache.dir

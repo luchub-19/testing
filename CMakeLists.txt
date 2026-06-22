@@ -5,16 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ── Dependencies ──────────────────────────────────────────────
-# pacman -S nlohmann-json cpp-httplib gtest
+# pacman -S nlohmann-json gtest   |   apt install nlohmann-json3-dev libgtest-dev
 find_package(nlohmann_json REQUIRED)
-find_package(GTest REQUIRED)
-
-find_path(HTTPLIB_INCLUDE_DIR httplib.h
-    HINTS /usr/include /usr/local/include)
-if(NOT HTTPLIB_INCLUDE_DIR)
-    message(FATAL_ERROR
-        "cpp-httplib not found. Install with: sudo pacman -S cpp-httplib")
-endif()
+find_package(GTest         REQUIRED)
 
 # ── Source groups ─────────────────────────────────────────────
 set(HARNESS_SRC
@@ -26,7 +19,7 @@ set(HARNESS_SRC
     src/harness/harness_runner.cpp
 )
 set(CLIENT_SRC
-    src/client/ollama_client.cpp
+    src/client/ollama_client.cpp   # dùng curl qua popen, không cần httplib
 )
 set(TOOLS_SRC
     src/tools/tool_registry.cpp
@@ -41,8 +34,6 @@ set(AGENT_SRC
     src/agent/skill_loader.cpp
     src/agent/agent_loop.cpp
 )
-
-# Tất cả source trừ LLM client (để tests không cần Ollama chạy)
 set(CORE_SRC ${HARNESS_SRC} ${TOOLS_SRC} ${AGENT_SRC})
 
 # ── Benchmark executable ──────────────────────────────────────
@@ -51,16 +42,13 @@ add_executable(run_eval
     ${CORE_SRC}
     ${CLIENT_SRC}
 )
-target_include_directories(run_eval PRIVATE
-    ${CMAKE_SOURCE_DIR}/src
-    ${HTTPLIB_INCLUDE_DIR}
-)
+target_include_directories(run_eval PRIVATE ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries(run_eval PRIVATE
     nlohmann_json::nlohmann_json
     pthread
 )
 
-# ── Unit tests ────────────────────────────────────────────────
+# ── Unit tests (không cần OllamaClient → không cần curl/httplib) ──
 enable_testing()
 
 add_executable(run_tests
@@ -71,10 +59,7 @@ add_executable(run_tests
     tests/test_tool_registry.cpp
     ${CORE_SRC}
 )
-target_include_directories(run_tests PRIVATE
-    ${CMAKE_SOURCE_DIR}/src
-    ${HTTPLIB_INCLUDE_DIR}
-)
+target_include_directories(run_tests PRIVATE ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries(run_tests PRIVATE
     nlohmann_json::nlohmann_json
     GTest::gtest_main

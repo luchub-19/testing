@@ -19,5 +19,12 @@
     "eval_type": "keyword",
     "eval_script": "Hello from AI Agent",
     "max_steps": 8
+  },
+  {
+    "id": "task_004",
+    "instruction": "Write hello world to /tmp/hw.txt then read it",
+    "eval_type": "keyword",
+    "eval_script": "hello world",
+    "max_steps": 8
   }
 ]

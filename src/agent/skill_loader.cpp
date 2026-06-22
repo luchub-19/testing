@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 namespace fs = std::filesystem;
 
@@ -24,10 +25,11 @@ void SkillLoader::loadSkillsFromDisk() {
             continue;
         }
 
-        std::string content(std::istreambuf_iterator<char>(f),
-                            std::istreambuf_iterator<char>());
+        // Dùng ostringstream để tránh "Most Vexing Parse" của C++
+        std::ostringstream oss;
+        oss << f.rdbuf();
         std::string stem = entry.path().stem().string();
-        skills_[stem] = std::move(content);
+        skills_[stem] = oss.str();
         std::cout << "[SkillLoader] Loaded: " << stem << ".md\n";
     }
 

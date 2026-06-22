@@ -1,9 +1,10 @@
 #include "ollama_client.h"
+#include <cstdio>
+#include <cstdlib>
+#include <fstream>
 #include <iostream>
-#include <stdexcept>
 #include <nlohmann/json.hpp>
-#define CPPHTTPLIB_OPENSSL_SUPPORT
-#include <httplib.h>
+#include <stdexcept>
 
 using json = nlohmann::json;
 
@@ -22,8 +23,8 @@ void OllamaClient::handleError(int code) const {
 
 std::string OllamaClient::chat(const std::string&              prompt,
                                 const std::vector<std::string>& history) {
-    // Xây dựng messages array theo Ollama /api/chat format
-    // history: [user_0, assistant_0, user_1, assistant_1, ...]
+    // ── Xây messages array ────────────────────────────────────
+    // history xen kẽ: [user_0, assistant_0, user_1, assistant_1, ...]
     json messages = json::array();
     for (std::size_t i = 0; i < history.size(); ++i) {
         std::string role = (i % 2 == 0) ? "user" : "assistant";
@@ -41,34 +42,57 @@ std::string OllamaClient::chat(const std::string&              prompt,
         }}
     };
 
-    // Tách host:port từ base_url_
-    std::string host = base_url_;
-    int port = 11434;
-    auto colon = base_url_.rfind(':');
-    if (colon != std::string::npos && colon > 6) {   // bỏ qua "http://"
-        host = base_url_.substr(0, colon);
-        port = std::stoi(base_url_.substr(colon + 1));
+    // ── Ghi request body ra file tạm ─────────────────────────
+    std::string tmp_req = "/tmp/ollama_request_" +
+                          std::to_string(std::rand()) + ".json";
+    {
+        std::ofstream f(tmp_req);
+        if (!f) throw std::runtime_error(
+            "[OllamaClient] Cannot write temp file: " + tmp_req);
+        f << body.dump();
     }
-    // Bỏ prefix http://
-    if (host.substr(0, 7) == "http://")  host = host.substr(7);
-    if (host.substr(0, 8) == "https://") host = host.substr(8);
 
-    httplib::Client cli(host, port);
-    cli.set_connection_timeout(30);
-    cli.set_read_timeout(120);
+    // ── Gọi Ollama qua curl (không cần httplib) ───────────────
+    std::string cmd =
+        "curl -s --max-time 120 "
+        "-X POST \"" + base_url_ + "/api/chat\" "
+        "-H \"Content-Type: application/json\" "
+        "-d @" + tmp_req + " 2>/dev/null";
 
-    auto res = cli.Post("/api/chat",
-                        body.dump(),
-                        "application/json");
+    FILE* pipe = popen(cmd.c_str(), "r");
+    if (!pipe) {
+        std::remove(tmp_req.c_str());
+        throw std::runtime_error("[OllamaClient] popen failed – is curl installed?");
+    }
 
-    if (!res)           throw std::runtime_error("[OllamaClient] No response from Ollama");
-    if (res->status != 200) handleError(res->status);
+    std::string raw;
+    char buf[4096];
+    while (fgets(buf, sizeof(buf), pipe)) raw += buf;
+    pclose(pipe);
+    std::remove(tmp_req.c_str());
+
+    // ── Parse response ────────────────────────────────────────
+    if (raw.empty()) {
+        throw std::runtime_error(
+            "[OllamaClient] Empty response – Ollama đang chạy chưa?\n"
+            "  → Chạy: ollama serve\n"
+            "  → Kiểm tra model: ollama list");
+    }
 
     try {
-        auto j = json::parse(res->body);
+        auto j = json::parse(raw);
+
+        // Ollama trả error JSON nếu model không tồn tại
+        if (j.contains("error")) {
+            throw std::runtime_error(
+                "[OllamaClient] Ollama error: " + j["error"].get<std::string>());
+        }
+
         return j["message"]["content"].get<std::string>();
-    } catch (const std::exception& e) {
+
+    } catch (const nlohmann::json::exception& e) {
         throw std::runtime_error(
-            std::string("[OllamaClient] Parse error: ") + e.what());
+            std::string("[OllamaClient] JSON parse error: ") + e.what() +
+            "\nRaw response: " + raw.substr(0, 200));
     }
 }
